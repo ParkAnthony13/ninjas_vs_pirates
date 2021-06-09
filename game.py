@@ -27,22 +27,35 @@ while True:
             break
         else:
             choose_side = input("Please type 'Ninja' or 'Pirate':  ")
+    player_win = 0
+    computer_win = 0
+    round = 1
+    while player_win < 2 and computer_win < 2:
+        player.show_stats()
+        print(f"ROUND {round}\nFIGHT!")
+        while comp.health > 0 and player.health > 0:
+            print(f"{player.name} attacks")
+            player.attack(comp).show_health()
+            print(f"{comp.name} attacks")
+            comp.attack(player).show_health()
+            print()
+            
+        print(f"player health: {player.health}\ncomputer health: {comp.health}")
+        if player.health > 0:
+            print(f"{player.name} WINS!")
+            comp.buff()
+            player_win += 1
+            print(f"Round Count: PLAYER: {player_win} COMPUTER: {computer_win}")
+        else:
+            print(f"YOU LOSE")
+            player.buff()
+            computer_win += 1
+            print(f"Round Count: PLAYER: {player_win} COMPUTER: {computer_win}")
+        round += 1
+        player.restore_all
+        comp.restore_all
 
-    player.show_stats()
-    round = 0
-    print(f"ROUND {round}\nFIGHT!")
-    while comp.health > 0 and player.health > 0:
-        print(f"{player.name} attacks")
-        player.attack(comp).show_health()
-        print(f"{comp.name} attacks")
-        comp.attack(player).show_health()
-        print()
-        
-    print(f"player health: {player.health}\ncomputer health: {comp.health}")
-    if player.health > 0:
-        print(f"{player.name} WINS!")
-    else:
-        print(f"YOU LOSE")
+
     state = input("do you want to continue?\n(Y/N):  ")
     if state.upper() == 'Y':
         continue

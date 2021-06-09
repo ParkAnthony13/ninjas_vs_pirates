@@ -16,3 +16,9 @@ class Pirate:
         ninja.health -= self.strength
         return self
 
+    def buff(self):
+        self.strength += 30
+        return self
+
+    def restore_all(self):
+        self.health = 100
